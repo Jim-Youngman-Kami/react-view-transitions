@@ -1,0 +1,277 @@
+/* Full-window deck. Sits outside the App shell, so it has none of the tab bar
+   or page padding. */
+.present {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+}
+
+.present__progress-track {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: #ffffff0d;
+}
+
+.present__progress {
+  height: 100%;
+  background: linear-gradient(90deg, #8b5cf6, #22d3ee);
+}
+
+.present__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.present__section {
+  opacity: 0.45;
+}
+
+.present__count {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+}
+
+/* Scrolls rather than clips if a slide is ever taller than the window at the
+   chosen zoom. */
+.present__viewport {
+  display: grid;
+  place-items: center;
+  overflow: auto;
+  padding: 1rem 0;
+}
+
+.present__stage {
+  box-sizing: border-box;
+  padding: 0 1.5rem;
+}
+
+.present__slide {
+  width: 100%;
+}
+
+.present__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem 1.25rem;
+  /* Leaves the middle free for the fixed speed control. */
+  min-height: 2.75rem;
+}
+
+.present__nav {
+  padding: 0.45rem 1rem;
+  border: 1px solid #3f3f46;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.78rem;
+  text-decoration: none;
+  cursor: pointer;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.present__nav:hover:not(:disabled) {
+  border-color: #71717a;
+}
+
+.present__nav:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+/* Cards on a slide get more room than on the scrolling pages. */
+.present__slide .mech {
+  padding: 2rem;
+}
+
+.present__slide .mech__title {
+  font-size: 1.5rem;
+}
+
+.present__slide .mech__blurb {
+  font-size: 0.95rem;
+  max-width: none;
+}
+
+.present__slide .mech__code {
+  font-size: 0.8rem;
+}
+
+/* --- Text slides ---------------------------------------------------------- */
+
+.text-slide {
+  text-align: left;
+}
+
+.text-slide__kicker {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #c4b5fd;
+}
+
+.text-slide__title {
+  margin: 0 0 1.5rem;
+  font-size: 2.6rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.text-slide__title code {
+  font-size: 0.85em;
+  color: #c4b5fd;
+}
+
+.text-slide__body {
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.text-slide__body p {
+  margin: 0 0 1rem;
+}
+
+.text-slide__body ul {
+  margin: 0 0 1.25rem;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.text-slide__body li::marker {
+  color: #8b5cf6;
+}
+
+.text-slide__body strong {
+  color: #fafafa;
+}
+
+.text-slide__body code {
+  padding: 0.05rem 0.35rem;
+  border-radius: 5px;
+  background: #ffffff12;
+  font-size: 0.9em;
+}
+
+.text-slide__body a {
+  color: #67e8f9;
+}
+
+.text-slide__code {
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  background: #00000059;
+  border: 1px solid #ffffff12;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.text-slide__code code {
+  padding: 0;
+  background: none;
+}
+
+.text-slide__punch {
+  padding-left: 1rem;
+  border-left: 3px solid #22d3ee;
+  color: #e4e4e7;
+}
+
+.text-slide__hint {
+  font-size: 0.85rem;
+  opacity: 0.45;
+}
+
+.text-slide--hero {
+  text-align: center;
+}
+
+.text-slide--hero .text-slide__title {
+  font-size: 4.5rem;
+  background: linear-gradient(120deg, #c4b5fd, #67e8f9);
+  background-clip: text;
+  color: transparent;
+}
+
+.text-slide--hero .text-slide__body {
+  font-size: 1.35rem;
+  opacity: 0.8;
+}
+
+/* --- Slide motion ---------------------------------------------------------
+   Chosen per transition type by the `enter` / `exit` maps in Present.tsx.
+   Staged like the gallery: the old slide is mostly gone before the new one
+   arrives, so the two never sit on top of each other at half opacity. */
+
+:root {
+  --vt-present: calc(420ms * var(--vt-scale));
+  --vt-present-out: calc(180ms * var(--vt-scale));
+  --vt-present-delay: calc(90ms * var(--vt-scale));
+}
+
+@keyframes present-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+}
+
+@keyframes present-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+}
+
+@keyframes present-out-left {
+  to {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+}
+
+@keyframes present-out-right {
+  to {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+}
+
+::view-transition-new(*.present-in-right) {
+  animation: present-in-right var(--vt-present) cubic-bezier(0.2, 0.8, 0.2, 1) var(--vt-present-delay) both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(*.present-in-left) {
+  animation: present-in-left var(--vt-present) cubic-bezier(0.2, 0.8, 0.2, 1) var(--vt-present-delay) both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(*.present-out-left) {
+  animation: present-out-left var(--vt-present-out) cubic-bezier(0.3, 0, 0.1, 1) both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(*.present-out-right) {
+  animation: present-out-right var(--vt-present-out) cubic-bezier(0.3, 0, 0.1, 1) both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-group(*.present-progress) {
+  animation-duration: var(--vt-present);
+}

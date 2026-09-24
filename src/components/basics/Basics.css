@@ -1,0 +1,170 @@
+/* Stage primitives for the "How it works" cards. Shares the card shell and
+   buttons from Mechanic.css; only the pieces those cards lack live here. */
+
+.basics-track {
+  display: flex;
+  align-items: center;
+  width: min(100%, 420px);
+  height: 72px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: 1px dashed #ffffff1f;
+}
+
+.basics-track--narrow {
+  width: 100%;
+}
+
+/* Moved by writing `data-side` from script, never through React props, so the
+   raw-API cards genuinely are "just the DOM". */
+.basics-tile {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  background: linear-gradient(140deg, #38bdf8, #6366f1);
+}
+
+.basics-tile[data-side='right'] {
+  width: 120px;
+  margin-left: auto;
+  background: linear-gradient(140deg, #f472b6, #a855f7);
+}
+
+.basics-tile--named {
+  outline: 2px solid #fbbf2499;
+  outline-offset: 2px;
+}
+
+.basics-stack {
+  display: grid;
+  gap: 0.6rem;
+  width: 100%;
+  justify-items: center;
+}
+
+.basics-status {
+  font-size: 0.75rem;
+  color: #fca5a5;
+  font-family: ui-monospace, monospace;
+}
+
+/* A shape on the left, its readout on the right. */
+.basics-split {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) 2fr;
+  gap: 1.25rem;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.basics-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.basics-check input {
+  accent-color: #8b5cf6;
+}
+
+.basics-choice--on {
+  border-color: #fbbf24aa;
+  color: #fde68a;
+}
+
+/* --- Timeline -------------------------------------------------------------- */
+
+.basics-timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.74rem;
+  line-height: 1.55;
+  align-self: start;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.basics-timeline__row {
+  display: grid;
+  grid-template-columns: 4.5ch 22ch 1fr;
+  gap: 0.6rem;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid #ffffff0d;
+}
+
+.basics-timeline__row--wide {
+  grid-template-columns: 8ch 1fr;
+}
+
+.basics-timeline__at {
+  opacity: 0.45;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.basics-timeline__label {
+  color: #c4b5fd;
+}
+
+.basics-timeline__detail {
+  opacity: 0.7;
+  overflow-wrap: anywhere;
+}
+
+/* --- Pseudo-element tree --------------------------------------------------- */
+
+.basics-tree {
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  align-self: center;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.basics-tree__row {
+  display: flex;
+}
+
+.basics-tree__indent {
+  opacity: 0.35;
+}
+
+.basics-tree__pseudo {
+  color: #c4b5fd;
+}
+
+.basics-tree__note {
+  margin-left: 1.25rem;
+  opacity: 0.45;
+}
+
+/* --- Styling + React cards ------------------------------------------------- */
+
+.basics-day {
+  min-width: 220px;
+}
+
+.basics-chips {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  width: 100%;
+}
+
+.basics-chip--moved {
+  margin-left: auto;
+  padding-inline: 1.6rem;
+}
+
+@media (max-width: 640px) {
+  .basics-split {
+    grid-template-columns: 1fr;
+  }
+}

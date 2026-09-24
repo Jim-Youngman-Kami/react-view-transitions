@@ -1,0 +1,26 @@
+.heading-row {
+  text-align: center;
+}
+
+.heading-row--start {
+  text-align: left;
+}
+
+/* inline-block so the box hugs the text — a full-width box would only change
+   height, and the snapshot would squash instead of scaling. */
+.heading {
+  display: inline-block;
+  margin: 0 0 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* Only size and alignment change, so the glyphs stay identical and the
+   heading reads as a clean scale rather than a cross-fade. */
+.heading--small {
+  font-size: 0.8rem;
+  opacity: 0.45;
+}

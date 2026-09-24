@@ -1,0 +1,14 @@
+.gallery-tile {
+  aspect-ratio: 1;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  color: #0b0b10;
+}
+
+.gallery-tile__name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}

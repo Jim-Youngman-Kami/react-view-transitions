@@ -1,0 +1,12 @@
+.card-title {
+  margin: 0;
+  font-weight: 500;
+}
+
+.card-title--small {
+  font-size: 1.1rem;
+}
+
+.card-title--large {
+  font-size: 2rem;
+}

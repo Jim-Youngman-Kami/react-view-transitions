@@ -1,0 +1,59 @@
+/**
+ * Pseudo-element rules for the "How it works" cards, kept apart from the other
+ * two stylesheets like `mechanics-transitions.css` is. Durations are multiples
+ * of `--vt-scale` so the speed slider retimes these too.
+ */
+
+:root {
+  --vt-basics: calc(460ms * var(--vt-scale));
+  --vt-basics-out: calc(240ms * var(--vt-scale));
+}
+
+@keyframes basics-slide-out {
+  to {
+    opacity: 0;
+    transform: translateY(-60%);
+  }
+}
+
+@keyframes basics-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(60%);
+  }
+}
+
+@keyframes basics-flip-out {
+  to {
+    transform: perspective(600px) rotateX(90deg);
+    opacity: 0.2;
+  }
+}
+
+@keyframes basics-flip-in {
+  from {
+    transform: perspective(600px) rotateX(-90deg);
+    opacity: 0.2;
+  }
+}
+
+::view-transition-old(*.basics-slide) {
+  animation: basics-slide-out var(--vt-basics-out) ease-in both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(*.basics-slide) {
+  animation: basics-slide-in var(--vt-basics) cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
+  mix-blend-mode: normal;
+}
+
+/* Out first, then in, so it reads as one card turning over. */
+::view-transition-old(*.basics-flip) {
+  animation: basics-flip-out var(--vt-basics-out) ease-in both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(*.basics-flip) {
+  animation: basics-flip-in var(--vt-basics-out) ease-out var(--vt-basics-out) both;
+  mix-blend-mode: normal;
+}

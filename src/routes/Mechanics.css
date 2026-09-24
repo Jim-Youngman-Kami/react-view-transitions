@@ -1,0 +1,19 @@
+.mech-page {
+  /* The speed slider is fixed to the bottom of the window, so the last card
+     needs room to clear it. */
+  padding-bottom: 5rem;
+}
+
+.mech-page__intro {
+  margin: 0 0 1.75rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.55;
+  text-align: left;
+}
+
+.mech-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}

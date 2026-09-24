@@ -1,0 +1,10 @@
+.card-tile {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 16px;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}

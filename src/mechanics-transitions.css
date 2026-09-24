@@ -1,0 +1,181 @@
+/**
+ * Pseudo-element rules for the mechanics page. Kept apart from
+ * `view-transitions.css` so the two original demos are untouched — the classes
+ * here are only ever referenced by the `mech-*` cards.
+ *
+ * Every duration is a multiple of `--vt-scale`, like the rest of the project,
+ * so the speed slider at the bottom of the window retimes these too.
+ */
+
+:root {
+  --vt-mech: calc(460ms * var(--vt-scale));
+  --vt-mech-quick: calc(220ms * var(--vt-scale));
+  --vt-mech-slow: calc(1400ms * var(--vt-scale));
+  --vt-mech-exit: calc(240ms * var(--vt-scale));
+}
+
+/* ---------------------------------------------------------------------------
+   Keyframes
+   --------------------------------------------------------------------------- */
+
+@keyframes mech-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6) translateY(12px);
+  }
+}
+
+@keyframes mech-pop-out {
+  to {
+    opacity: 0;
+    transform: scale(0.6) translateY(12px);
+  }
+}
+
+@keyframes mech-roll-out {
+  to {
+    opacity: 0;
+    transform: translateY(-40%);
+  }
+}
+
+@keyframes mech-roll-in {
+  from {
+    opacity: 0;
+    transform: translateY(40%);
+  }
+}
+
+@keyframes mech-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(44px);
+  }
+}
+
+@keyframes mech-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-44px);
+  }
+}
+
+@keyframes mech-out-left {
+  to {
+    opacity: 0;
+    transform: translateX(-44px);
+  }
+}
+
+@keyframes mech-out-right {
+  to {
+    opacity: 0;
+    transform: translateX(44px);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   `default` — the base class, applied whichever kind of animation happens.
+   Two contrasting timings, so the card can show the same movement at two
+   speeds and make it obvious the class is what CSS is matching on.
+   --------------------------------------------------------------------------- */
+
+::view-transition-group(*.mech-quick) {
+  animation-duration: var(--vt-mech-quick);
+}
+
+::view-transition-group(*.mech-lag) {
+  animation-duration: var(--vt-mech-slow);
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+::view-transition-group(*.mech-smooth) {
+  animation-duration: var(--vt-mech);
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   `enter` / `exit` — one side of the pair only, so `mix-blend-mode: normal`
+   and `both` are required: there is nothing to cross-fade against, and the
+   snapshot has to hold its final frame for the rest of the transition.
+   --------------------------------------------------------------------------- */
+
+::view-transition-new(*.mech-pop-in) {
+  animation: mech-pop-in var(--vt-mech) cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(*.mech-pop-out) {
+  animation: mech-pop-out var(--vt-mech-exit) cubic-bezier(0.3, 0, 0.1, 1) both;
+  mix-blend-mode: normal;
+}
+
+/* ---------------------------------------------------------------------------
+   `update` — the element stays mounted, so there genuinely are two snapshots.
+   Rolling one out while the other rolls in reads as a value being replaced,
+   which the default cross-fade does not.
+   --------------------------------------------------------------------------- */
+
+::view-transition-old(*.mech-roll) {
+  animation: mech-roll-out var(--vt-mech-quick) ease-in both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(*.mech-roll) {
+  animation: mech-roll-in var(--vt-mech) cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
+  mix-blend-mode: normal;
+}
+
+/* ---------------------------------------------------------------------------
+   `share` — the group is the whole story here. The old and new snapshots are
+   the same element in two places, so the interesting animation is the group
+   moving between them; the snapshots themselves just cross-fade.
+   --------------------------------------------------------------------------- */
+
+::view-transition-group(*.mech-glide) {
+  animation-duration: var(--vt-mech);
+  animation-timing-function: cubic-bezier(0.5, 0, 0.2, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   Per-type classes, chosen by `addTransitionType`.
+   --------------------------------------------------------------------------- */
+
+::view-transition-new(*.mech-in-right) {
+  animation: mech-in-right var(--vt-mech) cubic-bezier(0.4, 0, 0.2, 1) both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(*.mech-in-left) {
+  animation: mech-in-left var(--vt-mech) cubic-bezier(0.4, 0, 0.2, 1) both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(*.mech-out-left) {
+  animation: mech-out-left var(--vt-mech) cubic-bezier(0.4, 0, 0.2, 1) both;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(*.mech-out-right) {
+  animation: mech-out-right var(--vt-mech) cubic-bezier(0.4, 0, 0.2, 1) both;
+  mix-blend-mode: normal;
+}
+
+/* ---------------------------------------------------------------------------
+   Nested groups. A parent and the child inside it are separate groups, so they
+   need the same duration or they visibly come apart while both are moving.
+   --------------------------------------------------------------------------- */
+
+::view-transition-group(*.mech-nest) {
+  animation-duration: var(--vt-mech);
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+}

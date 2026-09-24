@@ -1,0 +1,61 @@
+/* A demo control rather than part of either demo, so it sits quietly at the
+   bottom of the shell instead of competing with the transitions themselves. */
+.speed {
+  position: fixed;
+  left: 50%;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #ffffff1a;
+  border-radius: 999px;
+  background: #16161cd9;
+  backdrop-filter: blur(8px);
+}
+
+.speed__label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.speed__input {
+  width: 150px;
+  accent-color: #8b5cf6;
+  cursor: pointer;
+}
+
+.speed__value {
+  min-width: 3ch;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  opacity: 0.85;
+}
+
+.speed__reset {
+  padding: 0.25rem 0.6rem;
+  border: 1px solid #3f3f46;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.speed__reset:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+@media (max-width: 520px) {
+  .speed__label,
+  .speed__reset {
+    display: none;
+  }
+}
