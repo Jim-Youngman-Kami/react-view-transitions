@@ -56,7 +56,7 @@ export function Callbacks() {
       id="callbacks"
       tag="onEnter / onExit / onShare / onUpdate"
       title="Callbacks — which case actually fired"
-      blurb="Each callback receives the ViewTransition instance (its name, or 'auto' if you never set one) and the array of active transition types. They are the fastest way to find out why an element animated the way it did — particularly to confirm whether a move was really a share or was silently an exit plus an enter. Under StrictMode you may see each entry twice."
+      blurb="Each callback receives the ViewTransition instance (its name, or 'auto' if you never set one) and the array of active transition types. They are the fastest way to find out why an element animated the way it did — particularly to confirm whether a move was really a share or was silently an exit plus an enter."
       code={CODE}
       controls={
         <>

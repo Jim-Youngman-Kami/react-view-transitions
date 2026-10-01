@@ -38,6 +38,10 @@ export function SpeedControl() {
         value={index}
         aria-valuetext={format(speed)}
         onChange={(event) => setIndex(Number(event.target.value))}
+        // A focused range input keeps the arrow keys, which would stop them
+        // changing slides in the deck. Mouse users get focus handed back;
+        // keyboard users who tabbed here keep it.
+        onPointerUp={(event) => event.currentTarget.blur()}
       />
       <output className="speed__value" htmlFor="speed-input">
         {format(speed)}

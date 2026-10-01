@@ -18,7 +18,9 @@ export default function HowItWorks() {
       <p className="mech-page__intro">
         These cards use the browser&apos;s View Transitions API directly, without React&apos;s
         &lt;ViewTransition&gt;. The last one shows what React layers on top. The Mechanics tab then
-        takes the React API apart one prop at a time.
+        takes the React API apart one prop at a time. One app-wide rule still applies here:{' '}
+        <code>view-transitions.css</code> slows every group to 600ms and stretches snapshots to the
+        group&apos;s height, so &ldquo;default&rdquo; below means default animations, not default timing.
       </p>
 
       <div className="mech-list">

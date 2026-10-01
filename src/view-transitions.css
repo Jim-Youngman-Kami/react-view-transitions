@@ -109,9 +109,8 @@
    together, so filtering reads as a sequence: the leavers collapse out of the
    way, the survivors close the gap, then the joiners arrive.
 
-   `normal` blending because these are single snapshots rather than a
-   cross-fading pair, and `both` so each snapshot holds its start/end state
-   outside its own (shorter) slice of the transition. */
+   `both` so each snapshot holds its start/end state outside its own (shorter)
+   slice of the transition. */
 
 /* Leavers go first and go fast. The curve has to be front-loaded: an ease-in
    here holds the tile at full opacity for half its run and then snaps it away,
@@ -121,7 +120,6 @@
    0.9-ish you would use on a pair that is also moving. */
 ::view-transition-old(*.tile-exit) {
   animation: vt-tile-collapse var(--vt-leave) cubic-bezier(0.3, 0, 0.1, 1) both;
-  mix-blend-mode: normal;
 }
 
 /* Joiners wait out most of the move, so they land in a settled grid instead of
@@ -129,39 +127,32 @@
 ::view-transition-new(*.tile-enter) {
   animation: vt-tile-expand var(--vt-arrive) cubic-bezier(0.2, 0.9, 0.3, 1.2)
     var(--vt-arrive-delay) both;
-  mix-blend-mode: normal;
 }
 
 /* Direction-aware stepping between creatures, selected by transition type. */
 ::view-transition-new(*.enter-right) {
   animation: vt-enter-right var(--vt-slide) cubic-bezier(0.4, 0, 0.2, 1);
-  mix-blend-mode: normal;
 }
 
 ::view-transition-new(*.enter-left) {
   animation: vt-enter-left var(--vt-slide) cubic-bezier(0.4, 0, 0.2, 1);
-  mix-blend-mode: normal;
 }
 
 ::view-transition-old(*.exit-left) {
   animation: vt-exit-left var(--vt-slide) cubic-bezier(0.4, 0, 0.2, 1);
-  mix-blend-mode: normal;
 }
 
 ::view-transition-old(*.exit-right) {
   animation: vt-exit-right var(--vt-slide) cubic-bezier(0.4, 0, 0.2, 1);
-  mix-blend-mode: normal;
 }
 
 /* Supporting copy that has no counterpart in the other view. */
 ::view-transition-new(*.rise) {
   animation: vt-rise var(--vt-slide) cubic-bezier(0.4, 0, 0.2, 1);
-  mix-blend-mode: normal;
 }
 
 ::view-transition-old(*.sink) {
   animation: vt-sink var(--vt-leave) cubic-bezier(0.3, 0, 0.1, 1) both;
-  mix-blend-mode: normal;
 }
 
 @media (prefers-reduced-motion: reduce) {

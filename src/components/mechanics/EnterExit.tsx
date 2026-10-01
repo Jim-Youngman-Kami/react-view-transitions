@@ -20,7 +20,7 @@ export function EnterExit() {
       id="enter-exit"
       tag="enter / exit"
       title="enter and exit — one side only"
-      blurb="enter applies when the element mounts and nothing with the same name is leaving; exit when it unmounts and nothing with that name is arriving. Because only one snapshot exists, these rules need mix-blend-mode: normal (there is nothing to cross-fade against) and animation-fill-mode: both (the snapshot must hold its last frame for the rest of the transition)."
+      blurb="enter applies when the element mounts and nothing with the same name is leaving; exit when it unmounts and nothing with that name is arriving. Only one snapshot exists, so there is nothing to cross-fade against. The rules use animation-fill-mode: both so the snapshot holds its first or last frame for the rest of the transition instead of snapping back."
       code={CODE}
       controls={
         <>

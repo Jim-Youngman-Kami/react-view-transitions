@@ -1,6 +1,6 @@
 # React `<ViewTransition>`
 
-Demos of React's experimental `<ViewTransition>` component and the browser API
+Demos of React's `<ViewTransition>` component (stable since React 19.3) and the browser API
 underneath it, in TypeScript, on separate routes, plus a slide deck for
 presenting them.
 
@@ -40,21 +40,6 @@ attached to the document element, so `--vt-scale` set on `:root` reaches
 overriding durations wholesale keeps the staged timings in proportion — at 0.25×
 the tile move, the entrance, and the entrance's delay all stretch by exactly 4×.
 
-> **Why the exact React pins?** `react` and `react-dom` are pinned to an exact
-> version with no caret. A caret over a prerelease
-> (`^0.0.0-experimental-<sha>`) still matches every other `0.0.0-*` build, and
-> semver compares prerelease tags ASCII-wise — so a stale nightly like
-> `0.0.0-fec00a869` sorts *above* `0.0.0-experimental-…` (`f` > `e`) and wins
-> resolution. That quietly installs a React 16-era build with no
-> `react-dom/client`, and Vite fails with `Failed to resolve import
-> "react-dom/client"`. Bump the two versions together, by hand.
-
-> **Why the `.npmrc`?** React experimental builds report their version as
-> `0.0.0-experimental-<sha>`, which never satisfies a peer range like
-> `react@>=19.2.7`. Without `legacy-peer-deps=true`, installing anything with a
-> React peer dependency (here, `react-router`) fails with `ERESOLVE` under npm.
-> pnpm ignores that flag and only warns, so the flag is there for npm fallback.
-
 ## Presenting
 
 Open `/present` (or the **Present ▸** tab). The deck is three parts:
@@ -79,15 +64,17 @@ reorder or cut slides, edit the `SLIDES` array in
 
 ## The three rules
 
-1. **Experimental React.** `<ViewTransition>` is not in stable React yet, so this
-   project installs `react@experimental` / `react-dom@experimental`. The types
-   already ship in `@types/react`, so no shims are needed.
+1. **React 19.3 or later.** `<ViewTransition>` and `addTransitionType` became
+   stable in React 19.3 (September 2026). Earlier versions only had them in the
+   canary and experimental channels.
 2. **A matching `name`.** Two elements with the same `name` on either side of an
    update are matched by React and animated between their positions and sizes.
 3. **An update inside a transition.** View transitions only run for updates
    marked as transitions — `startTransition(...)`. A plain `setState` swaps
-   instantly with no animation. React Router navigations already qualify, which
-   is why route changes animate without any extra opt-in.
+   instantly with no animation. React Router `<Link>` and `navigate()` already
+   qualify, which is why route changes animate without any extra opt-in. The
+   browser's own back and forward buttons do not: they change the route without
+   a view transition.
 
 ## Demo 1 — Simple
 
@@ -232,7 +219,7 @@ to change.
 ## Browser support
 
 Needs a browser with the View Transitions API (Chrome/Edge 111+, Safari 18+,
-Firefox 144+); the `view-transition-class` selectors used by demo 2 need Chrome
-125+. Elsewhere every demo still works, it just cuts between views without
+Firefox 144+); the `view-transition-class` selectors need Chrome 125+, Safari
+18.2+ or Firefox 144+. Elsewhere every demo still works, it just cuts between views without
 animating. Present from Chrome: that is where the deck was verified.
 Transitions are reduced to 1ms under `prefers-reduced-motion`.

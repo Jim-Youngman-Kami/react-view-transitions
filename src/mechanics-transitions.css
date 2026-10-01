@@ -95,19 +95,18 @@
 }
 
 /* ---------------------------------------------------------------------------
-   `enter` / `exit` — one side of the pair only, so `mix-blend-mode: normal`
-   and `both` are required: there is nothing to cross-fade against, and the
-   snapshot has to hold its final frame for the rest of the transition.
+   `enter` / `exit` — one side of the pair only. `both` is required: the
+   snapshot has to hold its first or last frame for the rest of the transition.
+   No blend-mode override is needed. The browser only adds its plus-lighter
+   blend when both snapshots exist, and an `animation` shorthand removes it.
    --------------------------------------------------------------------------- */
 
 ::view-transition-new(*.mech-pop-in) {
   animation: mech-pop-in var(--vt-mech) cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
-  mix-blend-mode: normal;
 }
 
 ::view-transition-old(*.mech-pop-out) {
   animation: mech-pop-out var(--vt-mech-exit) cubic-bezier(0.3, 0, 0.1, 1) both;
-  mix-blend-mode: normal;
 }
 
 /* ---------------------------------------------------------------------------
@@ -118,12 +117,10 @@
 
 ::view-transition-old(*.mech-roll) {
   animation: mech-roll-out var(--vt-mech-quick) ease-in both;
-  mix-blend-mode: normal;
 }
 
 ::view-transition-new(*.mech-roll) {
   animation: mech-roll-in var(--vt-mech) cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
-  mix-blend-mode: normal;
 }
 
 /* ---------------------------------------------------------------------------
@@ -143,22 +140,18 @@
 
 ::view-transition-new(*.mech-in-right) {
   animation: mech-in-right var(--vt-mech) cubic-bezier(0.4, 0, 0.2, 1) both;
-  mix-blend-mode: normal;
 }
 
 ::view-transition-new(*.mech-in-left) {
   animation: mech-in-left var(--vt-mech) cubic-bezier(0.4, 0, 0.2, 1) both;
-  mix-blend-mode: normal;
 }
 
 ::view-transition-old(*.mech-out-left) {
   animation: mech-out-left var(--vt-mech) cubic-bezier(0.4, 0, 0.2, 1) both;
-  mix-blend-mode: normal;
 }
 
 ::view-transition-old(*.mech-out-right) {
   animation: mech-out-right var(--vt-mech) cubic-bezier(0.4, 0, 0.2, 1) both;
-  mix-blend-mode: normal;
 }
 
 /* ---------------------------------------------------------------------------

@@ -254,22 +254,18 @@
 
 ::view-transition-new(*.present-in-right) {
   animation: present-in-right var(--vt-present) cubic-bezier(0.2, 0.8, 0.2, 1) var(--vt-present-delay) both;
-  mix-blend-mode: normal;
 }
 
 ::view-transition-new(*.present-in-left) {
   animation: present-in-left var(--vt-present) cubic-bezier(0.2, 0.8, 0.2, 1) var(--vt-present-delay) both;
-  mix-blend-mode: normal;
 }
 
 ::view-transition-old(*.present-out-left) {
   animation: present-out-left var(--vt-present-out) cubic-bezier(0.3, 0, 0.1, 1) both;
-  mix-blend-mode: normal;
 }
 
 ::view-transition-old(*.present-out-right) {
   animation: present-out-right var(--vt-present-out) cubic-bezier(0.3, 0, 0.1, 1) both;
-  mix-blend-mode: normal;
 }
 
 ::view-transition-group(*.present-progress) {

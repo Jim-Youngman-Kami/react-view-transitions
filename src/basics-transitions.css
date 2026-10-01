@@ -39,21 +39,17 @@
 
 ::view-transition-old(*.basics-slide) {
   animation: basics-slide-out var(--vt-basics-out) ease-in both;
-  mix-blend-mode: normal;
 }
 
 ::view-transition-new(*.basics-slide) {
   animation: basics-slide-in var(--vt-basics) cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
-  mix-blend-mode: normal;
 }
 
 /* Out first, then in, so it reads as one card turning over. */
 ::view-transition-old(*.basics-flip) {
   animation: basics-flip-out var(--vt-basics-out) ease-in both;
-  mix-blend-mode: normal;
 }
 
 ::view-transition-new(*.basics-flip) {
   animation: basics-flip-in var(--vt-basics-out) ease-out var(--vt-basics-out) both;
-  mix-blend-mode: normal;
 }

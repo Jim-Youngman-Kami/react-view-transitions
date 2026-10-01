@@ -48,32 +48,6 @@ export const SLIDES: Slide[] = [
     ),
   },
   {
-    id: 'problem',
-    section: 'Intro',
-    render: () => (
-      <TextSlide kicker="Why this exists" title="Animating React UI is awkward">
-        <ul>
-          <li>
-            <strong>Exits.</strong> React removes the node at commit. To animate it out you have to keep it
-            mounted yourself — <code>AnimatePresence</code>, transition groups, delayed unmounts.
-          </li>
-          <li>
-            <strong>Layout changes.</strong> FLIP: measure, update, measure again, invert, play. The
-            measuring has to reach across component boundaries.
-          </li>
-          <li>
-            <strong>Shared elements across routes.</strong> The old page&apos;s DOM is gone before the new
-            page&apos;s exists, so there is nothing to animate between.
-          </li>
-        </ul>
-        <p className="text-slide__punch">
-          View transitions sidestep all three: they animate <em>pictures</em> of the page, taken before and
-          after a single DOM update.
-        </p>
-      </TextSlide>
-    ),
-  },
-  {
     id: 'part-browser',
     section: PART_BROWSER,
     render: () => (
@@ -160,8 +134,9 @@ startTransition(() => setOpen(true))`}</Code>
       <TextSlide kicker="Before you ship" title="Things that will bite">
         <ul>
           <li>
-            <strong>Snapshots are pictures.</strong> Old is a flat image; a change of aspect ratio stretches
-            or squashes it unless you size the snapshots yourself.
+            <strong>Snapshots are pictures.</strong> By default they keep their aspect ratio and scale with
+            the group&apos;s width, so text zooms and content spills out of the box when the shape changes.
+            Setting <code>block-size: 100%</code> on old/new stretches them instead. Neither is free.
           </li>
           <li>
             <strong>Rendering pauses</strong> between the old capture and the DOM update, and the overlay
@@ -198,8 +173,9 @@ startTransition(() => setOpen(true))`}</Code>
             animate.
           </li>
           <li>
-            <strong><code>&lt;ViewTransition&gt;</code></strong> lives in React&apos;s canary and
-            experimental channels at the time of writing; this project pins an experimental build.
+            <strong><code>&lt;ViewTransition&gt;</code></strong> and <code>addTransitionType</code> are stable
+            since <strong>React 19.3</strong> (September 2026). Before that they were canary and experimental
+            only.
           </li>
         </ul>
       </TextSlide>
